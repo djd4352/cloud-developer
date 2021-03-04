@@ -17,7 +17,6 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
   // IT SHOULD
-  //    1
   //    1. validate the image_url query
   //    2. call filterImageFromURL(image_url) to filter the image
   //    3. send the resulting file in the response
@@ -30,7 +29,20 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   //! END @TODO1
-  
+  app.get("/filteredimage", async (req,res) => {
+    let  image_url = req.query.image_url;
+    if (image_url) {
+      filterImageFromURL(image_url).then((response) => {
+        res.sendFile(response);
+        res.on('finish', function () {
+          deleteLocalFiles([response]);
+
+        });
+      });
+    } else {
+      res.status(404).send("Please send the correct URL for the image.");
+    }
+  });ls
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
