@@ -42,7 +42,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     } else {
       res.status(404).send("Please send the correct URL for the image.");
     }
-  });ls
+  });
+
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
